@@ -1,0 +1,160 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.main{
+    margin: auto;
+    margin-top: 5%;
+    height:90vh;
+    width:80%;
+    
+}
+.header{
+   text-align: center;
+    font-family: 'Inter';
+    font-style: normal;
+    height: 45px;
+}
+.parent{
+    background-color: rgba(59, 57, 57, 0.339);
+    
+    
+}
+
+.input-box{
+    width: 100%;
+    height: 70px;
+    position: relative;
+    background-color: #A19F9F
+    
+}
+#input{
+    height: 45px;
+    width: 90%;
+    margin-top: 11px;
+    margin-left: 25px;
+    position: absolute;
+    border-radius: 10px;
+    padding-left: 15px;
+    padding-right: 50px;
+    border: none;
+    background-color: #D9D9D9;
+    
+    
+}
+
+#btn1{
+    height: 35px;
+    width:35px ;
+    border-radius: 50%;
+    cursor: pointer;
+    position: absolute;
+    right: 10%;
+    top: 16px;
+    border: 1px solid black;
+}
+.category{
+    height: 70px;
+    border-block: 1px solid black;
+    background-color: #A19F9F
+}
+#all-task{ 
+    margin-left: 25px;
+    margin-top: 20px;
+    width:100px;
+    height: 25px;
+    
+}
+#incomplete{
+    margin-left: 30px;
+    margin-top: 20px;
+    width:100px;
+    height: 25px;
+}
+#completed{
+    margin-left: 30px;
+    margin-top: 20px;
+    width:100px;
+    height: 25px;
+}
+.elements{
+    background-color: #A19F9F;
+    width: 100%;
+    height:340px ;
+    
+
+}
+.blocks{
+    width:93%;
+    overflow-y: auto;
+    height: 340px;
+    overflow-x: hidden;
+    padding-right: 30px;
+}
+.task{
+    position: relative;
+    margin-top: 25px;
+    margin-left: 25px;
+    margin-bottom: 25px;
+    width:100%;
+    height:80px;
+    border-color: black;
+    border: 1px solid rgb(74, 73, 73);
+    background-color: #D9D9D9;
+    border-radius: 10px;
+}
+.task:hover,
+.task:hover .inputs,
+.task:hover .delete{
+    background-color:  #C8C1C1;
+    
+}
+.checkbox{
+    position: absolute;
+    top: 29px;
+    left: 10px;
+    border-radius: 50%;
+    
+}
+.img1{
+    height: 18px;
+}
+.delete{
+    display:none;
+}
+
+.task:hover .delete{
+    display: inline-block;
+    position:absolute;
+    right: 10px;
+    top:25px;
+    background-color: #C8C1C1;
+    border: none;
+}
+.inputs{
+    position: absolute;
+    top: 25px;
+    left: 35px;
+    width: 80%;
+    background-color: #D9D9D9;;
+    border: none;
+}
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
+
+
+
