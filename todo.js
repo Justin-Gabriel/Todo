@@ -1,18 +1,18 @@
 
 btn1.addEventListener('click',() => {
-    const text = document.getElementById('input');
+    let text = document.getElementById('input');
     if(text.value){
+        text.style.outline = "";
+        text.placeholder = "Create Task...";
         let taskList = JSON.parse(localStorage.getItem("localItem")) || [];
-        // if(localItems === null) {
-        //     taskList = [];
-        // }else {
-        //     taskList = localItems;
-        // }
         taskList.push([text.value,false]);
         localStorage.setItem('localItem',JSON.stringify(taskList))
     }else {
-        alert("Enter a task to add");
+        let inputBox = document.querySelector(".input-box")
+        text.style.outline = "solid red";
+        text.placeholder = "Please Enter a task";
         text.focus();
+
     }
     if(text.value !=""){
         text.value =""
@@ -21,15 +21,28 @@ btn1.addEventListener('click',() => {
     loading();
     
 })
+
+// let main = document.querySelector('.main');
+// main.addEventListener('click',(event) => {
+//     console.log(event.target.className);
+//     if(event.target.className != input){
+//         let text = document.getElementById('input');
+//         text.style.outline = "";
+//         text.placeholder = "Create Task...";
+//     }
+
+// })
+
 function showTask(){
     
         let output = '';
         let block = document.querySelector('.blocks')
         let taskList = JSON.parse(localStorage.getItem("localItem"));
         taskList.forEach((element,index) => {
-            output += `<div class="task" ><input type="checkbox" class="checkbox" name="check" id="${index}" >
-            <input class="inputs"  id="${index}" maxlength="70" disabled="disabled" value="${element[0]}" onmouseout="out(event)">
-          <button class="delete" onClick="deleteItem(${index})"><img src="images/trash.svg" alt="" class="img1"></button> </div>`
+            output += `<div class="task" id="task${index}"><input type="checkbox" class="checkbox" name="check" id="check${index}">
+            <input class="inputs"  id="${index}" maxlength="70" disabled="disabled" value="${element[0]}" onselect="return false">
+            <button class="save" id="save${index}"><img src="images/saves.png" alt="" class="sav"></button>
+            <button class="delete" onClick="deleteItem(${index})"><img src="images/trash.svg" alt="" class="img1"></button> </div>`
             
         });
         block.innerHTML = output;
@@ -38,35 +51,46 @@ function showTask(){
 
     }
 
-    
-// function out(event){
-//     console.log(event.target.value);
-//     let vals = event.target.value;
-//     console.log(vals);
-//     // if(event.target.value="") {
-//     //     event.target.value = vals;
-//     //     console.log("after",event.target.value);
-//     // }
-// } 
-
 
 
 showTask();
                 
 
-function deleteItem(index) {
-    let taskList = JSON.parse(localStorage.getItem("localItem"));
-    taskList.splice(index,1)
-    localStorage.setItem('localItem',JSON.stringify(taskList));
 
-    showTask();
-    loading();
-    buttonValues();
-    let tasks = document.querySelectorAll('.task')
-    for (let task of tasks){
-    task.addEventListener('dblclick', edit)
-    }   
-    buttonValues();
+function deleteItem(index) {
+    let popup = document.querySelector('.popup');
+    popup.style.display = "block";
+    let yes = document.getElementById('yess');
+    
+    let no = document.getElementById('noo');
+
+    function yess(){
+            
+            let taskList = JSON.parse(localStorage.getItem("localItem"));
+            taskList.splice(index,1)
+            localStorage.setItem('localItem',JSON.stringify(taskList));
+            popup.style.display="none"
+            showTask();
+            loading();
+            buttonValues();
+            let tasks = document.querySelectorAll('.task')
+            for (let task of tasks){
+            task.addEventListener('dblclick', edit)
+            }   
+            buttonValues();
+            yes.removeEventListener('click',yess)
+        
+    };
+    yes.addEventListener('click',yess)
+
+
+    function noo(){
+        popup.style.display="none";
+
+    }
+    no.addEventListener('click',noo)
+
+
 
 }
 
@@ -91,53 +115,27 @@ function buttonValues(){
     allTask.innerHTML = `All tasks: ${boxes}` ;
     incomplete.innerHTML = `Incomplete: ${incompleteCount}` ;
     completed.innerHTML = `Completed: ${completeCount}` ;
-    
-    // let tasksss = document.querySelectorAll('.task');
-    // for (let task of tasks){
-    //     let bgColor = window.getComputedStyle(task, null).getPropertyValue("background-color");
-    //     if(bgColor){
-    //         console.log(bgColor);
-    //     }
 
 }
 buttonValues();
 
 
-
-// function save() {	
-//     let boxes = document.querySelectorAll('.checkbox').length;
-//     for(let i = 0; i < boxes; i++){
-// 	  let checkbox = document.getElementById(String(i));
-//       localStorage.setItem("checkbox" + String(i), checkbox.checked);	
-//   }
-//   loading()
-// }
 function save(event){
+    console.log(event.target);
     let taskList = JSON.parse(localStorage.getItem("localItem"));
     let checkbox = document.getElementById(String(event.target.id));
-    taskList[event.target.id][1] = checkbox.checked;
+    taskList[event.target.id.slice(-1)][1] = checkbox.checked;
     localStorage.setItem('localItem',JSON.stringify(taskList));
-    loading()
-    let tasks = document.querySelectorAll('.task')
-    for (let task of tasks){
-    task.addEventListener('dblclick', edit)
-    buttonValues();
-}   
+    loading();
+    buttonValues(); 
+}
+
+let checkbox = document.querySelectorAll('.checkbox')
+for(let check of checkbox){
+    check.addEventListener('change', save);
 }
 
 
-
-
-
-// function loading(){
-//     let boxes = document.querySelectorAll('.checkbox').length;
-//     for(let i = 0; i < boxes; i++){
-//         if(localStorage.length > 1){
-//           let checked = JSON.parse(localStorage.getItem("checkbox" + String(i)));
-//           document.getElementById(String(i)).checked = checked;
-//         }
-//       }
-// }
 
 function loading(){
     let boxes = document.querySelectorAll('.checkbox').length;
@@ -145,70 +143,205 @@ function loading(){
         if(localStorage.length > 0){
           let checklist = JSON.parse(localStorage.getItem("localItem"));
           let checked = checklist[i][1]
-          let elems = document.getElementById(String(i))
+          let elems = document.getElementById(`check${i}`)
           elems.checked = checked;
           if(elems.checked){
             elems.parentNode.style.backgroundColor = "#CD9E9E";
+            elems.nextElementSibling.style.textDecoration = "line-through";
 
           }else{
             elems.parentNode.style.backgroundColor = "";
+            elems.nextElementSibling.style.textDecoration = "";
           }
         }
-      }
+    }
+    let tasks = document.querySelectorAll('.task')
+      for (let task of tasks){
+          task.addEventListener('dblclick', edit)
+      } 
 }
 
 loading();
 
-let blocks = document.querySelector('.blocks')
-blocks.addEventListener('change', save);
+
 
 
 let inputs = document.querySelectorAll('.inputs')
 
 function edit(event){
-    if(event.target.className === 'inputs'){
-        
-        event.target.disabled="";
-        event.target.focus();
-        let vals = event.target.value;
-        blocks.addEventListener("keyup", function(event){ 
-        if (event.key === "Enter"){
-            event.preventDefault();
-            if(event.target.value){
-                let taskList = JSON.parse(localStorage.getItem("localItem"));
-                taskList[event.target.id][0] = event.target.value;
-                localStorage.setItem('localItem',JSON.stringify(taskList));
-                event.target.blur();
 
+    event.preventDefault();
+    function saved(){
+        if(event.target.className === 'inputs'){
+            let indexs = event.target.parentNode.id.slice(-1)
+            let checkbox = document.getElementById(`check${indexs}`)
+            checkbox.disabled = true;
+            event.target.disabled="";
+            event.target.focus();
+            let vals = event.target.value;
+            event.target.value = "";
+            event.target.value = vals;
+    
+            // function keys(event){ 
+    
+            function saves(e){
+                function sav(){
+                    checkbox.disabled = false;
+                    save.classList.remove('open')
+                    if(vals != event.target.value){
+                        let checklist = JSON.parse(localStorage.getItem("localItem"));
+                        let checked = checklist[event.target.id][1];
+                        if(checked){
+                            let taskList = JSON.parse(localStorage.getItem("localItem"));
+                            taskList[event.target.id][1] = false;
+                            localStorage.setItem('localItem',JSON.stringify(taskList));
+                        }
+                    }
+                    let taskList = JSON.parse(localStorage.getItem("localItem"));
+                    taskList[event.target.id][0] = event.target.value;
+                    localStorage.setItem('localItem',JSON.stringify(taskList));
+                    event.target.disabled="disabled";
+                    event.target.parentNode.parentNode.removeEventListener('mouseout',disable);
+                    let savetoast = document.querySelector('.savetoast')
+                    savetoast.style.visibility = "visible"
+                    let time = setTimeout( () => {
+                        savetoast.style.visibility = "hidden"
+                    },1000);
+                    event.target.blur();
+                    loading();
+                    buttonValues();
+                }
+    
+                if(event.target.value){
+                    sav();
+                }
+                else{
+     
+                    let savetoast = document.querySelector('.warningtoast')
+                    savetoast.style.visibility = "visible"
+                    let time = setTimeout( () => {
+                        savetoast.style.visibility = "hidden"
+                    },1000);
+                    event.target.focus();
+                    console.log(event.target.className);
+                    saved();
+    
+                    
+    
+                }
+                
+                save.removeEventListener('click',saves)
+                
+    
+                
             }
-            else{
-                alert("Enter a task");
-                event.target;
+            let save = document.getElementById(`save${indexs}`);
+            save.classList.add('open')
+            save.addEventListener('click',saves)
+    
+            function disable(e){
+                if(e.target.className == "blocks"){
+                    let pop = document.querySelector('.popedit');
+                    pop.style.display = "block";
+                    let yes = document.getElementById('yess');
+                    
+                    let no = document.getElementById('noo');
+    
+                    function yesss(){
+                        if(event.target.value){
+                            checkbox.disabled = false;
+                            save.classList.remove('open');
+                            if(vals != event.target.value){
+                                let checklist = JSON.parse(localStorage.getItem("localItem"));
+                                let checked = checklist[event.target.id][1];
+                                if(checked){
+                                    let taskList = JSON.parse(localStorage.getItem("localItem"));
+                                    taskList[event.target.id][1] = false;
+                                    localStorage.setItem('localItem',JSON.stringify(taskList));
+                                }
+                            }
+                            let taskList = JSON.parse(localStorage.getItem("localItem"));
+                            taskList[event.target.id][0] = event.target.value;
+                            localStorage.setItem('localItem',JSON.stringify(taskList));
+                            event.target.disabled="disabled";
+                            pop.style.display = "none";
+                            event.target.parentNode.parentNode.removeEventListener('mouseout',disable);
+                            let savetoast = document.querySelector('.savetoast')
+                            savetoast.style.visibility = "visible"
+                            let time = setTimeout( () => {
+                                savetoast.style.visibility = "hidden"
+                            },1000);
+                            yes.removeEventListener('click',yess)
+                            event.target.blur();
+                            loading();
+                            buttonValues();
+                        
+            
+                            
+            
+                        }
+                        else{
+                            pop.style.display = "none";
+                            let savetoast = document.querySelector('.warningtoast')
+                            savetoast.style.visibility = "visible"
+                            let time = setTimeout( () => {
+                                savetoast.style.visibility = "hidden"
+                            },1000);
+                            event.target.focus();
+                            console.log(event.target.className);
+                            saved();
+                        }
+                    }
+                    yes.addEventListener('click',yesss)
+    
+                    function noo(){
+                        event.target.value = vals;
+                        pop.style.display = "none";
+                        event.target.disabled="disabled";
+                        save.classList.remove('open');
+                        checkbox.disabled = false;
+                        event.target.parentNode.parentNode.removeEventListener('mouseout',disable);
+                        no.removeEventListener('click',noo);
+                        loading();
+    
+    
+    
+                    }
+                    no.addEventListener('click',noo)
+                }
+                
             }
-
+    
+            event.target.parentNode.parentNode.addEventListener('mouseout',disable)
+            // console.log(event.target.parentNode.parentNode);
+            
+    
+            event.target.parentNode.removeEventListener('dblclick',edit)
         }
+    }
+    saved();
 
-        })
-        
-    }}
+}
+
 
 let tasks = document.querySelectorAll('.task')
 for (let task of tasks){
-    task.addEventListener('click', edit)
+    task.addEventListener('dblclick', edit)
 } 
+
 
 // alltask button
 
 function alltasks(){
     let tasks = document.querySelectorAll('.task')
     for (let task of tasks){
-        console.log(task);
         task.style.display = "block"
     }
+
 }
 
 let allTask = document.getElementById('all-task');
-allTask.addEventListener('dblclick',alltasks)
+allTask.addEventListener('click',alltasks)
 
 
 // incomplete button
@@ -250,5 +383,9 @@ function completes(){
 
 let complete = document.getElementById('completed');
 complete.addEventListener('click',completes)
+
+
+
+
 
 
