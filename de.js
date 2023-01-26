@@ -16,7 +16,7 @@ input1.addEventListener('click', (event) => {
 
 let btn1 = document.getElementById('btn1');
 
-btn1.addEventListener('click',() => {
+btn1.addEventListener('click',(e) => {
     btn1.disabled = true;
     btn1.style.cursor = "no-drop"
     let text = document.getElementById('input');
@@ -26,33 +26,27 @@ btn1.addEventListener('click',() => {
         let taskList = JSON.parse(localStorage.getItem("localItem")) || [];
         taskList.unshift([text.value,false]);
         localStorage.setItem('localItem',JSON.stringify(taskList))
+    }else {
+        let inputBox = document.querySelector(".input-box")
+        text.style.outline = "solid red";
+        text.placeholder = "Please Enter a task";
+        text.focus();
 
     }
-    // else {
-    //     let inputBox = document.querySelector(".input-box")
-    //     text.style.outline = "solid red";
-    //     text.placeholder = "Please Enter a task";
-    //     text.focus();
-
-
-    // }
     if(text.value !=""){
         text.value =""
     }
     showTask();
     loading();
-    checkBox();
-    
-    
     
 })
 
-// let inputBox = document.querySelector(".input-box");
-// inputBox.addEventListener('mouseleave', (event) => {
-//     let text = document.getElementById('input');
-//     text.style.outline = "";
-//     text.placeholder = "Create Task...";
-// })
+let inputBox = document.querySelector(".input-box");
+inputBox.addEventListener('mouseleave', (event) => {
+    let text = document.getElementById('input');
+    text.style.outline = "";
+    text.placeholder = "Create Task...";
+})
 
 function showTask(){
     
@@ -81,12 +75,12 @@ showTask();
 function deleteItem(index) {
     let popup = document.querySelector('.popup');
     popup.style.display = "block";
-    const yesDel = document.getElementById('yesdel');
+    const yes = document.getElementById('yesdel');
     
-    const noDel = document.getElementById('nodel');
+    let no = document.getElementById('nodel');
 
     
-     function yes(){
+     function yess(){
 
         let taskList = JSON.parse(localStorage.getItem("localItem"));
         taskList.splice(index,1)
@@ -95,25 +89,24 @@ function deleteItem(index) {
         showTask();
         loading();
         buttonValues();
-        checkBox();
         let tasks = document.querySelectorAll('.task')
         for (let task of tasks){
-            task.addEventListener('dblclick', edit)
+        task.addEventListener('dblclick', edit)
         }   
-        yesDel.removeEventListener('click',yes)
+        buttonValues();
+        yes.removeEventListener('click',yess)
         
     }
 
-    yesDel.addEventListener('click',yes)
+    yes.addEventListener('click',yess)
     
 
 
-    function no(){
+    function noo(){
         popup.style.display="none";
-        noDel.removeEventListener('click',no)
+
     }
-    noDel.addEventListener('click',no);
-    
+    no.addEventListener('click',noo)
 
 
 }
@@ -146,26 +139,19 @@ buttonValues();
 
 
 function save(event){
+    console.log(event.target);
     let taskList = JSON.parse(localStorage.getItem("localItem"));
     let checkbox = document.getElementById(String(event.target.id));
-    console.log("checkbox",event.target.id);
     taskList[event.target.id.slice(-1)][1] = checkbox.checked;
     localStorage.setItem('localItem',JSON.stringify(taskList));
     loading();
     buttonValues(); 
-    checkBox();
 }
 
-function checkBox() {
-    let checkbox = document.querySelectorAll('.checkbox')
-    for(let check of checkbox){
+let checkbox = document.querySelectorAll('.checkbox')
+for(let check of checkbox){
     check.addEventListener('change', save);
-  }
 }
-checkBox();
-
-
-
 
 
 
@@ -242,7 +228,6 @@ function edit(event){
                     event.target.blur();
                     loading();
                     buttonValues();
-                    checkBox();
                 }
     
                 if(event.target.value){
@@ -277,9 +262,9 @@ function edit(event){
                 // if(e.target.className == "task"){
                     let pop = document.querySelector('.popedit');
                     pop.style.display = "block";
-                    let yess = document.getElementById('yes');
+                    let yess = document.getElementById('yess');
                     
-                    let nooo = document.getElementById('no');
+                    let noo = document.getElementById('noo');
     
                     function yessss(){
                         if(event.target.value){
@@ -305,11 +290,10 @@ function edit(event){
                             let time = setTimeout( () => {
                                 savetoast.style.visibility = "hidden"
                             },1000);
-                            yess.removeEventListener('click',yess)
+                            yes.removeEventListener('click',yess)
                             event.target.blur();
                             loading();
                             buttonValues();
-                            checkBox();
                         
             
                             
@@ -328,20 +312,20 @@ function edit(event){
                     }
                     yess.addEventListener('click',yessss)
     
-                    function noooo(){
+                    function noo(){
                         event.target.value = vals;
                         pop.style.display = "none";
                         event.target.disabled="disabled";
                         save.classList.remove('open');
                         checkbox.disabled = false;
                         event.target.parentNode.parentNode.removeEventListener('mouseout',disable);
-                        nooo.removeEventListener('click',noooo);
+                        no.removeEventListener('click',noo);
                         loading();
     
     
     
                     }
-                    nooo.addEventListener('click',noooo)
+                    noo.addEventListener('click',noo)
                 // }
                 event.target.parentNode.removeEventListener('mouseleave',disable)  
             }

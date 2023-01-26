@@ -6,7 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Todo</title>
     <link rel="stylesheet" href="style.css">
-    <script src="https://kit.fontawesome.com/f7fc1faf7b.js" crossorigin="anonymous"></script></head>
+    <script src="https://kit.fontawesome.com/f7fc1faf7b.js" crossorigin="anonymous"></script>
+    
+</head>
+    
 <body onselectstart="return false">
     <div class="main">
         <div class="header">
@@ -15,7 +18,7 @@
         <div class="parent">
             <div class="input-box">
                 <input id="input" class="input"  type="text"  maxlength="70" placeholder="Create Task..." value="">
-                <button id="btn1"><i class="fa-solid fa-plus btn1"></i></button>
+                <button id="btn1"  disabled="disabled"><i class="fa-solid fa-plus btn1"></i></button>
             </div>
             <div class="category">
                 <button id="all-task" >All tasks:</button>
@@ -29,21 +32,6 @@
                         <button class="save" id="save${index}"><img src="images/saves.png" alt="" class="sav"></button>
                         <button class="delete"><img src="images/trash.svg" alt="" class="img1"></button> 
                     </div> -->
-                    <!-- <div class="task">
-                        <input type="checkbox" class="checkbox" name="check">
-                        <p class="inputs" maxlength="80" >Reading 5 pages</p>
-                        <button class="delete"><img src="images/trash.svg" alt="" class="img1"></button>
-                    </div>
-                    <div class="task"> 
-                        <input type="checkbox" class="checkbox" name="check">
-                        <p class="inputs" maxlength="80" >Reading 3 pages</p>
-                        <button class="delete"><img src="images/trash.svg" alt="" class="img1"></button>
-                    </div>
-                    <div class="task"> 
-                        <input type="checkbox" class="checkbox" name="check">
-                        <p class="inputs" maxlength="80" >Reading 2 pages</p>
-                        <button class="delete"><img src="images/trash.svg" alt="" class="img1"></button>
-                    </div>  -->
                 </div>
             </div>
 
@@ -55,8 +43,8 @@
             <div class="popdelete">
                 <h4 class="hdel" >DO YOU WANT TO DELETE</h4>
                 <div class="btndel">
-                    <button type="button" id="yes" value="">YES</button>
-                    <button type="button" id="no" value = "">NO</button>
+                    <button type="button" id="yesdel" value="">YES</button>
+                    <button type="button" id="nodel" value = "">NO</button>
                 </div>
 
     
@@ -69,8 +57,8 @@
             <div class="popdelete">
                 <h5 class="hdel" >DO YOU WANT TO SAVE THE CHANGES</h5>
                 <div class="btndel">
-                    <button type="button" id="yess" value="">YES</button>
-                    <button type="button" id="noo" value = "">NO</button>
+                    <button type="button" id="yes" value="">YES</button>
+                    <button type="button" id="no" value = "">NO</button>
                 </div>
 
     
@@ -81,5 +69,6 @@
     <div class="savetoast">Saved Successfully</div>
     <div class="warningtoast"><h3>Cannot save a empty Field</h3><h3>Enter a task</h3> </div>
     <script src="todo.js"></script>
+    
 </body>
 </html>

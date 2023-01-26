@@ -52,12 +52,15 @@
     height: 35px;
     width:35px ;
     border-radius: 50%;
-    cursor: pointer;
+    cursor: no-drop;
+    
     position: absolute;
     right: 10%;
     top: 16px;
     border: 1px solid black;
 }
+
+
 .category{
     height: 70px;
     border-block: 1px solid black;
@@ -224,7 +227,6 @@
     width: 40px;
     cursor: pointer;
     height: 20px;
-    cursor: pointer;
     background-color: rgb(17, 125, 17);
     color: white;
     border: none;
@@ -273,7 +275,7 @@
     position: fixed;
     display: none;
 }
-#yess{
+#yesdel{
     width: 40px;
     height: 20px;
     cursor: pointer;
@@ -282,7 +284,7 @@
     border: none;
     border-radius: 3px;
 }
-#noo{
+#nodel{
     width: 40px;
     cursor: pointer;
     height: 20px;
