@@ -2,6 +2,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    
 }
 
 .main{
@@ -9,6 +10,7 @@
     margin-top: 5%;
     height:90vh;
     width:80%;
+    
 }
 .header{
    text-align: center;
@@ -44,9 +46,7 @@
     
     
 }
-/* #input:focus {
-    outline: none;
-} */
+
 
 #btn1{
     height: 35px;
@@ -111,9 +111,10 @@
 .blocks{
     width:93%;
     overflow-y: auto;
-    height: 340px;
+    max-height: 340px;
     overflow-x: hidden;
     padding-right: 30px;
+    
 }
 .task{
     position: relative;
@@ -178,6 +179,8 @@
     border: none;
     outline: none;
     color: black;
+    user-select: none;
+
 }
 
 .open{
@@ -193,14 +196,14 @@
     position: fixed;
     display: none;
 }
-.popdeldiv{
+.pop-div{
     height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center
 }
 
-.popdelete {
+.pop-delete {
 
     width:25%;
     height: 25%;
@@ -234,7 +237,7 @@
     border-radius: 3px;
 
 }
-.btndel{
+.btn-del{
     display: flex;
     gap: 35px;
 }
@@ -267,7 +270,7 @@
     border-radius: 5px;
     visibility: hidden;
 }
-.popedit{
+.pop-edit{
     top:0;
     left: 0;
     height:100vh;
@@ -276,7 +279,7 @@
     position: fixed;
     display: none;
 }
-#yesdel{
+#yes-del{
     width: 40px;
     height: 20px;
     cursor: pointer;
@@ -285,7 +288,7 @@
     border: none;
     border-radius: 3px;
 }
-#nodel{
+#no-del{
     width: 40px;
     cursor: pointer;
     height: 20px;
@@ -295,6 +298,22 @@
     border: none;
     border-radius: 3px;
 
+}
+#completed-task{
+    display: none;
+    padding-top: 13%;
+    padding-left: 25%;
+    height: fit-content;
+}
+#incompleted-task{
+    display: none;
+    padding-top: 13%;
+    padding-left: 25%;
+}
+#entire-task{
+    display: none;
+    padding-top: 13%;
+    padding-left: 25%;
 }
 
   

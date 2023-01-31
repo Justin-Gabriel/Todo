@@ -1,74 +1,85 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Todo</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="https://kit.fontawesome.com/f7fc1faf7b.js" crossorigin="anonymous"></script>
-    
-</head>
-    
-<body onselectstart="return false">
+    <link rel="stylesheet" href="style.css" />
+    <script
+      src="https://kit.fontawesome.com/f7fc1faf7b.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+
+  <body onselectstart="return false">
     <div class="main">
-        <div class="header">
-            <h1 >Todo</h1>
+      <div class="header">
+        <h1>Todo</h1>
+      </div>
+      <div class="parent">
+        <div class="input-box">
+          <input
+            id="input"
+            class="input"
+            title="Enter a Task"
+            type="text"
+            maxlength="70"
+            placeholder="Create Task..."
+            value=""
+          />
+          <button id="btn1" title="Add Task" disabled="disabled">
+            <i class="fa-solid fa-plus btn1"></i>
+          </button>
         </div>
-        <div class="parent">
-            <div class="input-box">
-                <input id="input" class="input"  type="text"  maxlength="70" placeholder="Create Task..." value="">
-                <button id="btn1"  disabled="disabled"><i class="fa-solid fa-plus btn1"></i></button>
-            </div>
-            <div class="category">
-                <button id="all-task" >All tasks:</button>
-                <button id="incomplete">Incomplete:10</button>
-                <button id="completed">Completed:10</button>
-            </div>
-            <div class="elements">
-                <div class="blocks">
-                    <!-- <div class="task" id="task${index}"><input type="checkbox" class="checkbox" name="check" id="check${index}">
+        <div class="category">
+          <button id="all-task" title="All task">All tasks:</button>
+          <button id="incomplete" title="Incompleted Task">Incomplete:</button>
+          <button id="completed" title="Completed Task">Completed:</button>
+        </div>
+        <div class="elements">
+          <h1 id="completed-task">THERE IS NO COMPLETED TASK</h1>
+          <h1 id="incompleted-task">THERE IS NO INCOMPLETED TASK</h1>
+          <h1 id="entire-task">THERE IS NO TASK</h1>
+
+          <div class="blocks">
+            <!-- <div class="task" id="task${index}"><input type="checkbox"  class="checkbox" name="check" id="check${index}">
                         <input class="inputs"  id="${index}" maxlength="70" disabled="disabled" value="${element[0]}" onselect="return false">
                         <button class="save" id="save${index}"><img src="images/saves.png" alt="" class="sav"></button>
                         <button class="delete"><img src="images/trash.svg" alt="" class="img1"></button> 
                     </div> -->
-                </div>
-            </div>
-
-
+          </div>
         </div>
+      </div>
     </div>
     <div class="popup">
-        <div class="popdeldiv">
-            <div class="popdelete">
-                <h4 class="hdel" >DO YOU WANT TO DELETE</h4>
-                <div class="btndel">
-                    <button type="button" id="yesdel" value="">YES</button>
-                    <button type="button" id="nodel" value = "">NO</button>
-                </div>
-
-    
-            </div>
+      <div class="pop-div">
+        <div class="pop-delete">
+          <h4 class="hdel">DO YOU WANT TO DELETE</h4>
+          <div class="btn-del">
+            <button type="button" id="yes-del" value="">YES</button>
+            <button type="button" id="no-del" value="">NO</button>
+          </div>
         </div>
-
+      </div>
     </div>
-    <div class="popedit">
-        <div class="popdeldiv">
-            <div class="popdelete">
-                <h5 class="hdel" >DO YOU WANT TO SAVE THE CHANGES</h5>
-                <div class="btndel">
-                    <button type="button" id="yes" value="">YES</button>
-                    <button type="button" id="no" value = "">NO</button>
-                </div>
-
-    
-            </div>
+    <div class="pop-edit">
+      <div class="pop-div">
+        <div class="pop-delete">
+          <h5 class="hdel">DO YOU WANT TO SAVE THE CHANGES</h5>
+          <h3 id="h3-edit"></h3>
+          <div class="btn-del">
+            <button type="button" id="yes" value="">YES</button>
+            <button type="button" id="no" value="">NO</button>
+          </div>
         </div>
-
+      </div>
     </div>
     <div class="savetoast">Saved Successfully</div>
-    <div class="warningtoast"><h3>Cannot save a empty Field</h3><h3>Enter a task</h3> </div>
+    <div class="warningtoast">
+      <h3>Cannot save a empty Field</h3>
+      <h3>Enter a task</h3>
+    </div>
     <script src="todo.js"></script>
-    
-</body>
+  </body>
 </html>
