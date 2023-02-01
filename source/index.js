@@ -29,7 +29,7 @@ const noEdit = document.getElementById("no");
 
 /**
  *  Function that is called when typing the task in the inputfield , which enables or disables the addButton
- * @param {Object} event 
+ * @param {Event} event 
  * @returns {void}
  */
 function onTaskTyping(event) {
@@ -44,7 +44,8 @@ function onTaskTyping(event) {
 }
 
 /**
- *  Function that is called when clicking the add button and it set the value to local storage
+ *  Function that is called when clicking the add button 
+ * It set the value to local storage
  */
 function onAddButtonClick() {
   addButton.disabled = true;
@@ -110,8 +111,8 @@ function showAllTask() {
             <div class="task" id="task${index}">
                 <input type="checkbox" title ="Mark task as completed" class="checkbox" name="check" id="check${index}">
                 <input class="inputs" title ="Double click to edit" id="${index}" maxlength="70" disabled="disabled" value="${element[0]}" >
-                <button class="save" title ="Save" id="save${index}"><img src="images/saves.png" alt="" class="sav"></button>
-                <button class="delete" title = "Delete" onClick="deleteTask(${index})"><img src="images/trash.svg" alt="" class="img1"></button> 
+                <button class="save" title ="Save" id="save${index}"><img src="images/saves.png" alt="Save Button" class="save-img"></button>
+                <button class="delete" title = "Delete" onClick="deleteTask(${index})"><img src="images/trash.svg" alt="Delete Button" class="delete-img"></button> 
             </div>`;
   });
   block.innerHTML = output;
@@ -135,7 +136,8 @@ function deleteTask(index) {
   deletePopup.style.display = "block";
 
   /**
-   * Function that is called when we press "yes" in the delete popup
+   * Function that is called when we click "yes" button in the delete popup
+   * It deletes the task
    */
   function onDeleteYes() {
     const taskList = JSON.parse(localStorage.getItem("localItem"));
@@ -163,7 +165,7 @@ function deleteTask(index) {
   }
  
   /**
-   * A function that is called when we press "no" in the delete popup
+   * A function that is called when we click "no" button in the delete popup
    */
   function onDeleteNo() {
     deletePopup.style.display = "none";
@@ -223,7 +225,7 @@ function setCheckBox(event) {
 }
 
 /**
- *  Check the status of checkbox
+ *  sets change event listener for each checkbox
  */
 function checkBox() {
   const checkboxs = document.querySelectorAll(".checkbox");
@@ -233,7 +235,7 @@ function checkBox() {
 }
 
 /**
- * Decorate the completed task text
+ * Decorate  text of each task based on its checked status
  */
 function textDecorate() {
   const boxes = document.querySelectorAll(".checkbox").length;
@@ -290,7 +292,8 @@ function setEditedTask() {
 }
 
 /**
- * Function that is called when we press "yes" in  edittask leaving popup
+ * Function that is called when we click "yes" button  in  edittask leaving popup
+ * It saves the edited task to the local storage
  */
 function yesLeavingTask() {
   const savetoast = document.querySelector(".savetoast");
@@ -345,7 +348,7 @@ function yesLeavingTask() {
 }
 
 /**
- * Function that is called when we press "no" in the edited task leaving popup
+ * Function that is called when we click "no" in the edited task leaving popup
  * @returns {void}
  */
 function notLeavingTask() {
@@ -400,6 +403,7 @@ function modifyTask() {
 
     /**
      * Function that is called when clicking the save button
+     * It saves the edited task to the local storage
      */
     function onClickSaveButton() {
       if (editTarget.value) {
@@ -435,7 +439,8 @@ function editTask(event) {
 }
 
 /**
- * A function that is called when clicking the "all-task" button , which shows the entire task
+ * A function that is called when clicking the "all-task" button 
+ * It shows the entire task
  */
 function showEntireTasks() {
   const tasks = document.querySelectorAll(".task");
@@ -455,7 +460,8 @@ function showEntireTasks() {
 }
 
 /**
- * A function that is called when clicking the "incomplete" button, which shows all incomplete tasks
+ * A function that is called when clicking the "incomplete" button
+ * It shows all incomplete tasks
  */
 function showIncompletedTask() {
   const tasks = document.querySelectorAll(".task");
@@ -480,7 +486,8 @@ function showIncompletedTask() {
 }
 
 /**
- * A function that is called when clicking "complete" task button , which shows all complete tasks
+ * A function that is called when clicking "complete" task button 
+ * It shows all complete tasks
  */
 
 function showCompletedTask() {

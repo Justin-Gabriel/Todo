@@ -139,14 +139,14 @@
     border-radius: 50%;
     
 }
-.img1{
+.delete-img{
     height: 18px;
 }
 .delete{
     display:none;
 }
 
-.sav{
+.save-img{
     height: 18px;
 }
 
