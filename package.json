@@ -1,0 +1,23 @@
+{
+  "name": "todo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "todo.js",
+  "scripts": {
+    "doc": "jsdoc -c jsdoc.json"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Justin-Gabriel/Todo.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Justin-Gabriel/Todo/issues"
+  },
+  "homepage": "https://github.com/Justin-Gabriel/Todo#readme",
+  "devDependencies": {
+    "jsdoc": "^4.0.0"
+  }
+}
