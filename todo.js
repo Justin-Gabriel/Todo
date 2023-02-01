@@ -8,23 +8,23 @@ let saveButton = null;
 let checkbox = null;
 let taskValue = null;
 
-let inputText = document.getElementById("input");
-let inputBox = document.querySelector(".input-box");
-let addButton = document.getElementById("btn1");
-let inputs = document.querySelectorAll(".inputs");
-let allTask = document.getElementById("all-task");
-let incomplete = document.getElementById("incomplete");
-let complete = document.getElementById("completed");
-let completeTask = document.getElementById("completed-task");
-let incompletedTask = document.getElementById("incompleted-task");
-let entireTask = document.getElementById("entire-task");
-let editPopup = document.querySelector(".pop-edit");
-let tasks = document.querySelectorAll(".task");
-let yesDelete = document.getElementById("yes-del");
-let noDelete = document.getElementById("no-del");
-let deletePopup = document.querySelector(".popup");
-let yesEdit = document.getElementById("yes");
-let noEdit = document.getElementById("no");
+const inputText = document.getElementById("input");
+const inputBox = document.querySelector(".input-box");
+const addButton = document.getElementById("btn1");
+const inputs = document.querySelectorAll(".inputs");
+const allTask = document.getElementById("all-task");
+const incomplete = document.getElementById("incomplete");
+const complete = document.getElementById("completed");
+const completeTask = document.getElementById("completed-task");
+const incompletedTask = document.getElementById("incompleted-task");
+const entireTask = document.getElementById("entire-task");
+const editPopup = document.querySelector(".pop-edit");
+const tasks = document.querySelectorAll(".task");
+const yesDelete = document.getElementById("yes-del");
+const noDelete = document.getElementById("no-del");
+const deletePopup = document.querySelector(".popup");
+const yesEdit = document.getElementById("yes");
+const noEdit = document.getElementById("no");
 
 function onTaskTyping(event) {
   event.target.addEventListener("input", () => {
@@ -40,21 +40,20 @@ function onTaskTyping(event) {
 function onAddButtonClick() {
   addButton.disabled = true;
   addButton.style.cursor = "no-drop";
-  let text = document.getElementById("input");
-  if (text.value) {
-    text.style.outline = "";
-    text.placeholder = "Create Task...";
-    let taskList = JSON.parse(localStorage.getItem("localItem")) || [];
-    taskList.unshift([text.value, false]);
+  if (inputText.value) {
+    const taskList = JSON.parse(localStorage.getItem("localItem")) || [];
+    inputText.style.outline = "";
+    inputText.placeholder = "Create Task...";
+    taskList.unshift([inputText.value, false]);
     localStorage.setItem("localItem", JSON.stringify(taskList));
-    text.blur();
+    inputText.blur();
   } else {
-    text.style.outline = "solid red";
-    text.placeholder = "Please Enter a task";
-    text.focus();
+    inputText.style.outline = "solid red";
+    inputText.placeholder = "Please Enter a task";
+    inputText.focus();
   }
-  if (text.value != "") {
-    text.value = "";
+  if (inputText.value != "") {
+    inputText.value = "";
   }
   completeTask.style.display = "none";
   incompletedTask.style.display = "none";
@@ -73,22 +72,21 @@ function onEnter(event) {
 }
 
 function inputBoxLeave(event) {
-  let text = document.getElementById("input");
-  text.style.outline = "";
-  text.placeholder = "Create Task...";
+  inputText.style.outline = "";
+  inputText.placeholder = "Create Task...";
 }
 
 function showAllTask() {
   let output = "";
-  let block = document.querySelector(".blocks");
-  let taskList = JSON.parse(localStorage.getItem("localItem"));
+  const block = document.querySelector(".blocks");
+  const taskList = JSON.parse(localStorage.getItem("localItem"));
   taskList.forEach((element, index) => {
     output += `
             <div class="task" id="task${index}">
                 <input type="checkbox" title ="Mark task as completed" class="checkbox" name="check" id="check${index}">
                 <input class="inputs" title ="Double click to edit" id="${index}" maxlength="70" disabled="disabled" value="${element[0]}" >
                 <button class="save" title ="Save" id="save${index}"><img src="images/saves.png" alt="" class="sav"></button>
-                <button class="delete" title = "Delete" onClick="deleteItem(${index})"><img src="images/trash.svg" alt="" class="img1"></button> 
+                <button class="delete" title = "Delete" onClick="deleteTask(${index})"><img src="images/trash.svg" alt="" class="img1"></button> 
             </div>`;
   });
   block.innerHTML = output;
@@ -105,15 +103,15 @@ function showAllTask() {
 
 
 /**
- * Returns the sum of all numbers passed to the function.
+ * function to delete the task
  * @param {Integer} index 
  */
-function deleteItem(index) {
+function deleteTask(index) {
   
   deletePopup.style.display = "block";
 
   function onDeleteYes() {
-    let taskList = JSON.parse(localStorage.getItem("localItem"));
+    const taskList = JSON.parse(localStorage.getItem("localItem"));
     taskList.splice(index, 1);
     localStorage.setItem("localItem", JSON.stringify(taskList));
     deletePopup.style.display = "none";
@@ -130,7 +128,7 @@ function deleteItem(index) {
       isComplete = false;
       showCompletedTask();
     }
-    let tasks = document.querySelectorAll(".task");
+    const tasks = document.querySelectorAll(".task");
     for (let task of tasks) {
       task.addEventListener("dblclick", editTask);
     }
@@ -147,16 +145,13 @@ function deleteItem(index) {
 }
 
 function showButtonValues() {
-  const allTask = document.getElementById("all-task");
-  const incomplete = document.getElementById("incomplete");
-  const completed = document.getElementById("completed");
   incompleteCount = 0;
   completeCount = 0;
   totalCount = document.querySelectorAll(".checkbox").length;
   for (let i = 0; i < totalCount; i++) {
     if (localStorage.length > 0) {
-      let checklist = JSON.parse(localStorage.getItem("localItem"));
-      let checked = checklist[i][1];
+      const checklist = JSON.parse(localStorage.getItem("localItem"));
+      const checked = checklist[i][1];
 
       if (checked) {
         completeCount += 1;
@@ -165,12 +160,12 @@ function showButtonValues() {
   }
   allTask.innerHTML = `All tasks: ${totalCount}`;
   incomplete.innerHTML = `Incomplete: ${incompleteCount}`;
-  completed.innerHTML = `Completed: ${completeCount}`;
+  complete.innerHTML = `Completed: ${completeCount}`;
 }
 
 function setCheckBox(event) {
-  let taskList = JSON.parse(localStorage.getItem("localItem"));
-  let checks = document.getElementById(String(event.target.id));
+  const taskList = JSON.parse(localStorage.getItem("localItem"));
+  const checks = document.getElementById(String(event.target.id));
   taskList[event.target.id.slice(-1)][1] = checks.checked;
   localStorage.setItem("localItem", JSON.stringify(taskList));
 
@@ -189,19 +184,20 @@ function setCheckBox(event) {
 }
 
 function checkBox() {
-  let checkboxs = document.querySelectorAll(".checkbox");
+  const checkboxs = document.querySelectorAll(".checkbox");
   for (let check of checkboxs) {
     check.addEventListener("change", setCheckBox);
   }
 }
 
 function loading() {
-  let boxes = document.querySelectorAll(".checkbox").length;
+  const boxes = document.querySelectorAll(".checkbox").length;
+  const tasks = document.querySelectorAll(".task");
   for (let i = 0; i < boxes; i++) {
     if (localStorage.length > 0) {
-      let checklist = JSON.parse(localStorage.getItem("localItem"));
-      let checked = checklist[i][1];
-      let elems = document.getElementById(`check${i}`);
+      const checklist = JSON.parse(localStorage.getItem("localItem"));
+      const checked = checklist[i][1];
+      const elems = document.getElementById(`check${i}`);
       elems.checked = checked;
       if (elems.checked) {
         elems.parentNode.style.backgroundColor = "#CD9E9E";
@@ -212,32 +208,31 @@ function loading() {
       }
     }
   }
-  let tasks = document.querySelectorAll(".task");
   for (let task of tasks) {
     task.addEventListener("dblclick", editTask);
   }
 }
 
 function setEditedTask() {
+  const savetoast = document.querySelector(".savetoast");
   checkbox.disabled = false;
   saveButton.classList.remove("open");
   if (taskValue != editTarget.value) {
-    let checklist = JSON.parse(localStorage.getItem("localItem"));
-    let checked = checklist[editTarget.id][1];
+    const checklist = JSON.parse(localStorage.getItem("localItem"));
+    const checked = checklist[editTarget.id][1];
     if (checked) {
-      let taskList = JSON.parse(localStorage.getItem("localItem"));
+      const taskList = JSON.parse(localStorage.getItem("localItem"));
       taskList[editTarget.id][1] = false;
       localStorage.setItem("localItem", JSON.stringify(taskList));
     }
   }
-  let taskList = JSON.parse(localStorage.getItem("localItem"));
+  const taskList = JSON.parse(localStorage.getItem("localItem"));
   taskList[editTarget.id][0] = editTarget.value;
   localStorage.setItem("localItem", JSON.stringify(taskList));
   editTarget.disabled = "disabled";
   editTarget.parentNode.parentNode.removeEventListener("mouseout", onLeavingTask);
-  let savetoast = document.querySelector(".savetoast");
   savetoast.style.visibility = "visible";
-  let time = setTimeout(() => {
+  const time = setTimeout(() => {
     savetoast.style.visibility = "hidden";
   }, 1000);
   editTarget.blur();
@@ -247,27 +242,27 @@ function setEditedTask() {
 }
 
 function yesLeavingTask() {
+  const savetoast = document.querySelector(".savetoast");
   if (editTarget.value) {
     checkbox.disabled = false;
     saveButton.classList.remove("open");
     if (taskValue != editTarget.value) {
-      let checklist = JSON.parse(localStorage.getItem("localItem"));
-      let checked = checklist[editTarget.id][1];
+      const checklist = JSON.parse(localStorage.getItem("localItem"));
+      const checked = checklist[editTarget.id][1];
       if (checked) {
-        let taskList = JSON.parse(localStorage.getItem("localItem"));
+        const taskList = JSON.parse(localStorage.getItem("localItem"));
         taskList[editTarget.id][1] = false;
         localStorage.setItem("localItem", JSON.stringify(taskList));
       }
     }
-    let taskList = JSON.parse(localStorage.getItem("localItem"));
+    const taskList = JSON.parse(localStorage.getItem("localItem"));
     taskList[editTarget.id][0] = editTarget.value;
     localStorage.setItem("localItem", JSON.stringify(taskList));
     editTarget.disabled = "disabled";
     editPopup.style.display = "none";
     editTarget.parentNode.parentNode.removeEventListener("mouseleave", onLeavingTask);
-    let savetoast = document.querySelector(".savetoast");
     savetoast.style.visibility = "visible";
-    let time = setTimeout(() => {
+    const time = setTimeout(() => {
       savetoast.style.visibility = "hidden";
     }, 1000);
     yesEdit.removeEventListener("click", yesLeavingTask);
@@ -286,11 +281,12 @@ function yesLeavingTask() {
       showCompletedTask();
     }
   } else {
+    const warningtoast = document.querySelector(".warningtoast");
     editPopup.style.display = "none";
-    let savetoast = document.querySelector(".warningtoast");
-    savetoast.style.visibility = "visible";
-    let time = setTimeout(() => {
-      savetoast.style.visibility = "hidden";
+ 
+    warningtoast.style.visibility = "visible";
+    const time = setTimeout(() => {
+      warningtoast.style.visibility = "hidden";
     }, 1000);
     editTarget.focus();
     modifyTask();
@@ -298,8 +294,7 @@ function yesLeavingTask() {
 }
 
 function notLeavingTask() {
-  let taskList = JSON.parse(localStorage.getItem("localItem"));
-
+  const taskList = JSON.parse(localStorage.getItem("localItem"));
   editTarget.value = taskList[editTarget.id][0];
   editPopup.style.display = "none";
   editTarget.disabled = "disabled";
@@ -311,8 +306,7 @@ function notLeavingTask() {
 }
 
 function onLeavingTask() {
-  let taskList = JSON.parse(localStorage.getItem("localItem"));
-
+  const taskList = JSON.parse(localStorage.getItem("localItem"));
   if (editTarget.value != taskList[editTarget.id][0]) {
     editPopup.style.display = "block";
     document.getElementById("h3-edit").innerHTML = editTarget.value;
@@ -330,7 +324,7 @@ function onLeavingTask() {
 function modifyTask() {
   
   if (editTarget.className === "inputs") {
-    let indexs = editTarget.parentNode.id.slice(-1);
+    const indexs = editTarget.parentNode.id.slice(-1);
     checkbox = document.getElementById(`check${indexs}`);
     checkbox.disabled = true;
     editTarget.disabled = "";
@@ -338,7 +332,6 @@ function modifyTask() {
     taskValue = editTarget.value;
     editTarget.value = "";
     editTarget.value = taskValue;
-
     saveButton = document.getElementById(`save${indexs}`);
     saveButton.classList.add("open");
     saveButton.addEventListener("click", onClickSaveButton);
@@ -347,10 +340,10 @@ function modifyTask() {
       if (editTarget.value) {
         setEditedTask();
       } else {
-        let savetoast = document.querySelector(".warningtoast");
-        savetoast.style.visibility = "visible";
-        let time = setTimeout(() => {
-          savetoast.style.visibility = "hidden";
+        const warningtoast = document.querySelector(".warningtoast");
+        warningtoast.style.visibility = "visible";
+        const time = setTimeout(() => {
+          warningtoast.style.visibility = "hidden";
         }, 1000);
         editTarget.focus();
         modifyTask();
@@ -372,6 +365,7 @@ function editTask(event) {
 }
 
 function showEntireTasks() {
+  const tasks = document.querySelectorAll(".task");
   isIncomplete = false;
   isComplete = false;
   completeTask.style.display = "none";
@@ -379,7 +373,6 @@ function showEntireTasks() {
   incomplete.style.border = "none";
   complete.style.border = "none";
   allTask.style.border = "solid";
-  let tasks = document.querySelectorAll(".task");
   for (let task of tasks) {
     task.style.display = "block";
   }
@@ -389,6 +382,7 @@ function showEntireTasks() {
 }
 
 function showIncompletedTask() {
+  const tasks = document.querySelectorAll(".task");
   isIncomplete = true;
   isComplete = false;
   completeTask.style.display = "none";
@@ -396,10 +390,9 @@ function showIncompletedTask() {
   incomplete.style.border = "solid";
   allTask.style.border = "none";
   complete.style.border = "none";
-  let tasks = document.querySelectorAll(".task");
   for (let i = 0; i < tasks.length; i++) {
-    let checklist = JSON.parse(localStorage.getItem("localItem"));
-    let checked = checklist[i][1];
+    const checklist = JSON.parse(localStorage.getItem("localItem"));
+    const checked = checklist[i][1];
 
     if (checked) {
       tasks[i].style.display = "none";
@@ -411,6 +404,7 @@ function showIncompletedTask() {
 }
 
 function showCompletedTask() {
+  const tasks = document.querySelectorAll(".task");
   isComplete = true;
   isIncomplete = false;
   incompletedTask.style.display = "none";
@@ -418,10 +412,9 @@ function showCompletedTask() {
   complete.style.border = "solid";
   incomplete.style.border = "none";
   allTask.style.border = "none";
-  let tasks = document.querySelectorAll(".task");
   for (let i = 0; i < tasks.length; i++) {
-    let checklist = JSON.parse(localStorage.getItem("localItem"));
-    let checked = checklist[i][1];
+    const checklist = JSON.parse(localStorage.getItem("localItem"));
+    const checked = checklist[i][1];
 
     if (checked) {
       tasks[i].style.display = "block";
