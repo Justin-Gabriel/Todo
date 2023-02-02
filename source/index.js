@@ -78,7 +78,7 @@ function onAddButtonClick() {
 
 /**
  * A function that is called when the Enter key is pressed  
- * @param {Object} event - The event object that is triggered by the key press
+ * @param {Event} event - The event is triggered by the key press
  * @returns {Void}
  */
 function onEnter(event) {
@@ -90,7 +90,7 @@ function onEnter(event) {
 
 /**
  * A function that is called when the cursor moves out of the input box
- * @param {Object} event - The event object that is triggered by the mouse leave
+ * @param {Event} event - The event is triggered by the mouse leave
  * @returns {void}
  */
 function inputBoxLeave(event) {
@@ -201,7 +201,7 @@ function showButtonValues() {
 
 /**
  * A function that is called when clicking the checkbox
- * @param {Object} event - The event object is triggered when clicking checkbox
+ * @param {Event} event - The event is triggered when clicking checkbox
  * @returns {void}
  */
 function setCheckBox(event) {
@@ -429,7 +429,7 @@ function modifyTask() {
 
 /**
  * A function that is called when doubleclicking the task
- * @param {Object} event - The event object is triggered by the double click
+ * @param {Event} event - The event is triggered by the double click
  * @returns {void}
  */
 function editTask(event) {
